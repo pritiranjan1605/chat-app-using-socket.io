@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express')
 const path = require('path')
 const http = require('http')
@@ -22,7 +24,7 @@ app.use(express.static('public'))
 app.get('/',(req,res)=>{
     res.render('index')
 })
-const port = 8000;
+const port = process.env.PORT || 8000;
 myserver.listen(port,()=>{
     console.log("hello server connected")
 })
