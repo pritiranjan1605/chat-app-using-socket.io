@@ -16,7 +16,7 @@ These instructions will help you set up and run the project on your local machin
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-project.git
+   git clone https://github.com/pritiranjan1605/chat-app-using-socket.io.git
    cd your-project
 2. Install dependencies:
 
