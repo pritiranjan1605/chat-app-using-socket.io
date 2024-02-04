@@ -102,7 +102,7 @@ app.get('/',(req,res)=>{
 app.get('/signup',(req,res)=>{
     res.render('signup')
 })
-mongoose.connect("mongodb://127.0.0.1:27017/chatlyy").then(()=>console.log("connected")).catch((err)=>console.log(err))
+mongoose.connect(process.env.MONGO_URL).then(()=>console.log("connected")).catch((err)=>console.log(err))
 const port = process.env.PORT || 8000;
 myserver.listen(port,()=>{
     console.log("hello server connected")
