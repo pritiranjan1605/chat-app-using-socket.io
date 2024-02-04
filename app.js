@@ -38,7 +38,6 @@ const app = express();
 
 
 
-mongoose.connect("mongodb://127.0.0.1:27017/chatlyy").then(()=>console.log("connected")).catch((err)=>console.log(err))
 
 
 app.set("view engine","ejs")
