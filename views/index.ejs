@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,8 +88,24 @@
 </head>
 
 <body>
+
     <div class="container">
+        <div id="roomdet" style=" text-align: center;
+        margin-top: 15px;
+        border: 8px solid green;
+        border-radius: 20px;
+        font-weight: bold;display: none;"></div>
+        <div class="in" style="display: flex;
+        margin-top: 20px;justify-content: center;">
+            <input type="text" style="margin-left: 20px;
+            margin-right: 10px;" id="room" placeholder="Enter room ID">
+            <button id="join">JOIN</button>
+            <button id="exit" style="margin-left: 15px; display: none;">LEAVE</button>
+        </div>
+
         <h1>Chatlyy</h1>
+
+
         <div id="userid" style="text-align: center; font-weight: bolder;">
 
         </div>
@@ -102,48 +117,75 @@
     </div>
 
     <script>
-         const inputmessage = document.getElementById("messagebox");
+        const inputmessage = document.getElementById("messagebox");
         const sendbtn = document.getElementById("sendbutton");
         const area = document.getElementById('delivermessage');
         const userid = document.getElementById('userid')
-        
+        const room = document.getElementById('room')
+        const join = document.getElementById('join')
+        const exit = document.getElementById('exit');
+        const roomarea = document.getElementById('roomdet')
         const socket = io();
         socket.on('connect', () => {
-        userid.innerHTML = `User ID: ${socket.id}`;
-    });
+            userid.innerHTML = `User ID: ${socket.id}`;
+        });
 
-        
+
+        join.addEventListener('click', (e) => {
+            const roomvalue = room.value
+            const message = inputmessage.value
+            roomarea.style.display = "block"
+            exit.style.display = 'block'
+
+            roomarea.innerText = `joined room ${roomvalue}`;
+            if (roomvalue.trim() === "") {
+                socket.emit("message", { message: message });
+            } else {
+                socket.emit("joinroom", { message: message, roomno: roomvalue });
+            }
+
+        })
+
+
+        exit.addEventListener('click', (e) => {
+            const roomvalue = room.value;
+            room.value =""
+            socket.emit('exitRoom', { roomno: roomvalue });
+            roomarea.style.display = "none";
+
+        });
+
 
         function scrollToBottom() {
-            var scrollableDiv = document.getElementById('delivermessage');
-            scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+            
+            area.scrollTop = area.scrollHeight;
         }
 
-       
+
         sendbtn.addEventListener("click", () => {
-            
+            const roomvalue = room.value
             const message = inputmessage.value.trim();
-            
+
             if (message !== "") {
-                socket.emit("message", message);
+                if (roomvalue.trim() === "") {
+                    socket.emit("message", { message: message });
+                }
+                else {
+                    socket.emit("message", { message: message, roomno: roomvalue });
+                }
                 inputmessage.value = "";
             }
-            
+
         });
 
         socket.on("message", (data) => {
-            
             const p = document.createElement('p');
             p.textContent = `${data.id}-----${data.message}`;
             area.appendChild(p);
             scrollToBottom();
         });
+
     </script>
 </body>
 
 </html>
-
-
-
-
- 
