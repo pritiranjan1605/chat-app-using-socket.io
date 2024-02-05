@@ -88,33 +88,34 @@
 </head>
 
 <body>
-
-    <div class="container">
-        <div id="roomdet" style=" text-align: center;
+        <div class="container">
+            <div id="roomdet" style=" text-align: center;
         margin-top: 15px;
         border: 8px solid green;
         border-radius: 20px;
         font-weight: bold;display: none;"></div>
-        <div class="in" style="display: flex;
+            <div class="in" style="display: flex;
         margin-top: 20px;justify-content: center;">
-            <input type="text" style="margin-left: 20px;
+                <input type="text" style="margin-left: 20px;
             margin-right: 10px;" id="room" placeholder="Enter room ID">
-            <button id="join">JOIN</button>
-            <button id="exit" style="margin-left: 15px; display: none;">LEAVE</button>
+                <button id="join">JOIN</button>
+                <button id="exit" style="margin-left: 15px; display: none;">LEAVE</button>
+            </div>
+
+            <h1>Chatlyy</h1>
+
+
+            <div id="userid" style="text-align: center; font-weight: bolder;">
+
+            </div>
+            <div id="delivermessage"></div>
+
         </div>
-
-        <h1>Chatlyy</h1>
-
-
-        <div id="userid" style="text-align: center; font-weight: bolder;">
-
-        </div>
-        <div id="delivermessage"></div>
         <div class="input">
             <input type="text" id="messagebox" placeholder="Type your message">
             <button id="sendbutton">Send</button>
         </div>
-    </div>
+    
 
     <script>
         const inputmessage = document.getElementById("messagebox");
@@ -149,7 +150,7 @@
 
         exit.addEventListener('click', (e) => {
             const roomvalue = room.value;
-            room.value =""
+            room.value = ""
             socket.emit('exitRoom', { roomno: roomvalue });
             roomarea.style.display = "none";
 
@@ -157,7 +158,7 @@
 
 
         function scrollToBottom() {
-            
+
             area.scrollTop = area.scrollHeight;
         }
 
